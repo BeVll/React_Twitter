@@ -9,11 +9,12 @@ import {jwtDecode} from "jwt-decode";
 import {useDispatch} from "react-redux";
 import {api, apiForm} from "../../utils/axios.ts";
 import ReCAPTCHA from "react-google-recaptcha";
+import {useNavigate} from "react-router-dom";
 
 const AuthPage = () => {
     const dispatch = useDispatch();
     const recaptchaRef = React.useRef();
-
+    const navigate = useNavigate();
     const onSubmitWithReCAPTCHA = async (e) => {
         e.preventDefault();
         const token = await recaptchaRef.current.executeAsync();
@@ -54,7 +55,7 @@ const AuthPage = () => {
                 apiForm.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
                 localStorage.setItem("token", token);
-
+                navigate(`/profile/${user.id}`);
             }).catch(reason => {
                 console.log(reason);
             })
@@ -69,7 +70,7 @@ const AuthPage = () => {
                 <Input value={formik.values.password} onChange={formik.handleChange} isInvalid={formik.errors.password != null} errorMessage={formik.errors.password} type="password" name={"password"} label="Password" placeholder="Enter your password"/>
                 <ReCAPTCHA
                     ref={recaptchaRef}
-                    size="normal"
+                    size="invisible"
 
                     sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
 

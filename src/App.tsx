@@ -4,6 +4,7 @@ import Router from "./Router.tsx";
 import {useDispatch} from "react-redux";
 import {AuthUserActionType, IUser} from "./store/types.ts";
 import {jwtDecode} from "jwt-decode";
+import {api, apiForm} from "./utils/axios.ts";
 
 function App() {
 
@@ -11,8 +12,8 @@ function App() {
 
     useEffect(() => {
         if (localStorage.token) {
-            // api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-            // apiForm.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+            api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+            apiForm.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 
             const user2 = jwtDecode(localStorage.token) as IUser;
 

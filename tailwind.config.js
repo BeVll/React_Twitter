@@ -20,15 +20,17 @@ export default {
         layout: {},
         colors: {
           primary: {
-            DEFAULT: "#17C964FF"
+            DEFAULT: "#1D9BF0"
           }
         },
       },
       dark: {
-        layout: {},
+        layout: {
+
+        },
         colors: {
           primary: {
-            DEFAULT: "#17C964FF"
+            DEFAULT: "#1D9BF0"
           }
         },
       },
