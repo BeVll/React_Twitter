@@ -9,6 +9,9 @@ const UserApi = {
     follow: async function (id:string|number) {
         return await api.post(`/follow/${id}`);
     },
+    getFollowers: async function (id:string|number) {
+        return await api.get(`/follow/list/${id}`);
+    },
 }
 
 export default UserApi;

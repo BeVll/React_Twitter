@@ -8,13 +8,15 @@ import TweetApi from "../../features/tweets/api/TweetApi.ts";
 import {useSelector} from "react-redux";
 import {IAuthUser} from "../../store/types.ts";
 import {ITweetView} from "../../features/tweets/types.ts";
-import {Button} from "@nextui-org/react";
+import {Button, Link, useDisclosure} from "@nextui-org/react";
+import FollowersModal from "../../features/user/components/FollowersModal.tsx";
 
 const UserPage = () => {
     const {id} = useParams();
     const [profile, setProfile] = useState<IUserDetailed>();
     const { user, isAuth } = useSelector((store: any) => store.auth as IAuthUser);
     const [tweets, setTweets] = useState<ITweetView[]>([]);
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     useEffect(() => {
         console.log(id);
@@ -86,10 +88,11 @@ const UserPage = () => {
                         <span className={"text-default-500"}>{profile?.description}</span>
 
                         <div className={"flex gap-[20px]"}>
-                        <span>
-                            <span className={"font-bold"}>{profile?.followers}</span>
-                            <span className={"font-light"}> Followers</span>
-                        </span>
+                        <Link color={"foreground"} className={"cursor-pointer"} onPress={onOpen} >
+                            <span className={"font-bold"}>{profile?.followers} </span>
+
+                            <span className={"font-light ml-1"}>Followers</span>
+                        </Link>
 
                             <span>
                             <span className={"font-bold"}>{profile?.following}</span>
@@ -98,6 +101,8 @@ const UserPage = () => {
                         </div>
                     </div>
                 </div>
+                
+
             </div>
 
             <div className={"bg-content1 rounded-xl flex flex-col"}>
@@ -112,6 +117,7 @@ const UserPage = () => {
                         ))
                 }
             </div>
+            <FollowersModal id={id} isOpen={isOpen} onOpenChange={onOpenChange}/>
         </div>
     );
 };

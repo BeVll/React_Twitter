@@ -14,3 +14,10 @@ export interface IUserDetailed {
     isFollowed: boolean;
 }
 
+export interface IFollower {
+    id: number;
+    followerId: number,
+    follower: IUserDetailed;
+    userId: number,
+    createdAt: Date,
+}
